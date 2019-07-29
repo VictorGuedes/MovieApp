@@ -45,6 +45,9 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:2.1.0"
     androidTestImplementation "androidx.room:room-testing:2.1.0"
 
+    // Paging
+    implementation 'android.arch.paging:runtime:1.0.1'
+
 }
 
 repositories{

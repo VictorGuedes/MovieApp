@@ -4,30 +4,35 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.LiveData;
+import androidx.paging.LivePagedListBuilder;
+import androidx.paging.PageKeyedDataSource;
+import androidx.paging.PagedList;
 
-import com.example.android.movieapp.model.response.MovieResponse;
-import com.example.android.movieapp.repository.MoviesRepository;
+import com.example.android.movieapp.model.Results;
+import com.example.android.movieapp.repository.MovieDataSource;
+import com.example.android.movieapp.repository.MovieDataSourceFactory;
 
 public class MoviesViewModel extends AndroidViewModel {
 
-    private MoviesRepository moviesRepository;
-    private MutableLiveData<MovieResponse> moviesMutableLiveData;
+    private LiveData<PagedList<Results>> moviePagedList;
+    private LiveData<PageKeyedDataSource<Integer, Results>> liveDataSource;
 
     public MoviesViewModel(@NonNull Application application) {
         super(application);
-        moviesRepository = new MoviesRepository(application);
 
-        // Teste call por aqui
-        moviesRepository.callPopularMovies(1);
+        MovieDataSourceFactory movieDataSourceFactory = new MovieDataSourceFactory();
+        liveDataSource = movieDataSourceFactory.getMoviesLiveData();
 
-        moviesMutableLiveData = moviesRepository.getMoviesLiveData();
+        PagedList.Config pagedListConfig =
+                (new PagedList.Config.Builder())
+                        .setEnablePlaceholders(false)
+                        .setPageSize(MovieDataSource.pageSize).build();
+
+        moviePagedList = (new LivePagedListBuilder(movieDataSourceFactory, pagedListConfig)).build();
     }
 
-    public MutableLiveData<MovieResponse> getMovieMutableLiveData() {
-        return moviesMutableLiveData;
+    public LiveData<PagedList<Results>> getMoviePagedList() {
+        return moviePagedList;
     }
-
-
-
 }
