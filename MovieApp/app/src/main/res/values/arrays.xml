@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="pref_type_movie_search">
+        <item>@string/popular_movies_text</item>
+        <item>@string/top_rated_text</item>
+    </array>
+
+    <array name="pref_type_movie_search_options_values">
+        <item>@string/popular_movies_text</item>
+        <item>@string/top_rated_text</item>
+    </array>
+
+</resources>

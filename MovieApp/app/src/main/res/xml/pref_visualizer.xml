@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:defaultValue="@string/popular_movies_text"
+        android:entries="@array/pref_type_movie_search"
+        android:entryValues="@array/pref_type_movie_search_options_values"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:key="@string/pref_search_key"
+        android:title="@string/search_text" />
+
+</androidx.preference.PreferenceScreen>

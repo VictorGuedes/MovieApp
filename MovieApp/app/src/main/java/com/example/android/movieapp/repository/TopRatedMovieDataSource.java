@@ -8,21 +8,19 @@ import com.example.android.movieapp.model.response.MovieResponse;
 import com.example.android.movieapp.service.ApiService;
 import com.example.android.movieapp.service.MoviesService;
 
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MovieDataSource extends PageKeyedDataSource<Integer, Results> {
+public class TopRatedMovieDataSource extends PageKeyedDataSource<Integer, Results> {
 
-    public static final int pageSize = 20;
-    public static final int firstPage = 1;
+    private int firstPage = 1;
 
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, Results> callback) {
         MoviesService moviesService = ApiService.getRetrofitInstance().create(MoviesService.class);
 
-        moviesService.getPopularMovies(ApiService.apiKey, firstPage).enqueue(new Callback<MovieResponse>() {
+        moviesService.getTopRatedMovies(ApiService.apiKey, firstPage).enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 if (response.body() != null){
@@ -41,7 +39,7 @@ public class MovieDataSource extends PageKeyedDataSource<Integer, Results> {
     public void loadBefore(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Results> callback) {
         MoviesService moviesService = ApiService.getRetrofitInstance().create(MoviesService.class);
 
-        moviesService.getPopularMovies(ApiService.apiKey, params.key).enqueue(new Callback<MovieResponse>() {
+        moviesService.getTopRatedMovies(ApiService.apiKey, params.key).enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 Integer adjacentKey = (params.key > 1) ? params.key - 1 : null;
@@ -60,7 +58,8 @@ public class MovieDataSource extends PageKeyedDataSource<Integer, Results> {
     @Override
     public void loadAfter(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Results> callback) {
         MoviesService moviesService = ApiService.getRetrofitInstance().create(MoviesService.class);
-        moviesService.getPopularMovies(ApiService.apiKey, params.key).enqueue(new Callback<MovieResponse>() {
+
+        moviesService.getTopRatedMovies(ApiService.apiKey, params.key).enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 if(response.body() != null){
@@ -75,4 +74,7 @@ public class MovieDataSource extends PageKeyedDataSource<Integer, Results> {
             }
         });
     }
+
+
+
 }

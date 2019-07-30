@@ -1,7 +1,11 @@
 package com.example.android.movieapp.view;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +13,17 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.android.movieapp.DetailsActivity;
 import com.example.android.movieapp.R;
 import com.example.android.movieapp.model.Results;
 import com.example.android.movieapp.service.ApiService;
+import com.example.android.movieapp.viewModel.MoviesViewModel;
 import com.squareup.picasso.Picasso;
 
 public class MoviePosterAdapter extends PagedListAdapter<Results, MoviePosterAdapter.MovieViewHolder> {
@@ -35,15 +43,25 @@ public class MoviePosterAdapter extends PagedListAdapter<Results, MoviePosterAda
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MovieViewHolder holder, int position) {
         final Results movies = getItem(position);
         if (movies != null){
             Picasso.get().load(ApiService.basePosterUrl + movies.getPosterPath()).into(holder.imageView);
 
             holder.imageView.setOnClickListener(new View.OnClickListener() {
+                @androidx.annotation.RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(context, movies.getTittle(), Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(context, movies.getOriginalTittle(), Toast.LENGTH_SHORT).show();
+
+                    /*Intent intent = new Intent(context, DetailsActivity.class);
+                    holder.imageView.setTransitionName("movie_Poster");
+                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                            (Activity) context, holder.imageView, ViewCompat.getTransitionName(holder.imageView));
+
+                    context.startActivity(intent, options.toBundle());*/
+
                 }
             });
         }
