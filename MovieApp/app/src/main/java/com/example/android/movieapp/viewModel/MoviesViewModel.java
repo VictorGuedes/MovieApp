@@ -15,7 +15,7 @@ import com.example.android.movieapp.R;
 import com.example.android.movieapp.model.Results;
 import com.example.android.movieapp.repository.MovieDataSourceFactory;
 
-public class MoviesViewModel extends AndroidViewModel {
+public class MoviesViewModel extends AndroidViewModel implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private LiveData<PagedList<Results>> moviePagedList;
     private LiveData<PageKeyedDataSource<Integer, Results>> liveDataSource;
@@ -26,6 +26,8 @@ public class MoviesViewModel extends AndroidViewModel {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplication().getBaseContext());
         String text = sharedPreferences.getString(application.getResources().getString(R.string.pref_search_key), "");
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+
         movieDataSourceFactory = new MovieDataSourceFactory();
 
         callApi(text);
@@ -46,5 +48,13 @@ public class MoviesViewModel extends AndroidViewModel {
         PagedList.Config pagedListConfig = new PagedList.Config.Builder().setEnablePlaceholders(false).setPageSize(20).build();
 
         moviePagedList = (new LivePagedListBuilder(movieDataSourceFactory, pagedListConfig)).build();
+    }
+
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+        String text = sharedPreferences.getString(s, "");
+        liveDataSource.getValue().invalidate();
+        callApi(text);
     }
 }

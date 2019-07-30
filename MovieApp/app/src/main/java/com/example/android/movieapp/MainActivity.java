@@ -29,7 +29,7 @@ import com.example.android.movieapp.view.MoviePosterAdapter;
 import com.example.android.movieapp.view.SettingsActivity;
 import com.example.android.movieapp.viewModel.MoviesViewModel;
 
-public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class MainActivity extends AppCompatActivity  {
 
     private MoviesViewModel moviesViewModel;
     private RecyclerView recyclerView;
@@ -38,9 +38,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -78,14 +75,5 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         }
 
         return true;
-    }
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-        Log.d("Shared", sharedPreferences.getString(s, ""));
-        String text = sharedPreferences.getString(s, "");
-
-        moviesViewModel.getLiveDataSource().getValue().invalidate();
-        moviesViewModel.callApi(text);
     }
 }
