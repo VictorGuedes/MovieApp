@@ -8,13 +8,4 @@
     tools:context=".DetailsActivity"
     tools:showIn="@layout/activity_details">
 
-    <ImageView
-        android:id="@+id/image_movie_poster_details"
-        android:transitionName="movie_Poster"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher"
-        tools:targetApi="lollipop" />
-
 </androidx.core.widget.NestedScrollView>

@@ -26,7 +26,8 @@ import com.example.android.movieapp.service.ApiService;
 import com.example.android.movieapp.viewModel.MoviesViewModel;
 import com.squareup.picasso.Picasso;
 
-public class MoviePosterAdapter extends PagedListAdapter<Results, MoviePosterAdapter.MovieViewHolder> {
+public class MoviePosterAdapter extends PagedListAdapter<Results, MoviePosterAdapter.MovieViewHolder>
+        implements MovieEventListener  {
 
     private Context context;
 
@@ -44,23 +45,26 @@ public class MoviePosterAdapter extends PagedListAdapter<Results, MoviePosterAda
 
     @Override
     public void onBindViewHolder(@NonNull final MovieViewHolder holder, int position) {
-        final Results movies = getItem(position);
-        if (movies != null){
-            Picasso.get().load(ApiService.basePosterUrl + movies.getPosterPath()).into(holder.imageView);
+        final Results movie = getItem(position);
+        if (movie != null){
+            Picasso.get().load(ApiService.basePosterUrl + movie.getPosterPath()).into(holder.imageView);
 
             holder.imageView.setOnClickListener(new View.OnClickListener() {
                 @androidx.annotation.RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void onClick(View view) {
 
-                    Toast.makeText(context, movies.getOriginalTittle(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, movie.getOriginalTittle(), Toast.LENGTH_SHORT).show();
 
-                    /*Intent intent = new Intent(context, DetailsActivity.class);
+                    Intent intent = new Intent(context, DetailsActivity.class);
                     holder.imageView.setTransitionName("movie_Poster");
+                    intent.putExtra("photo",ApiService.basePosterUrl + movie.getPosterPath());
+                    intent.putExtra("tittle", movie.getOriginalTittle());
+
                     ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                             (Activity) context, holder.imageView, ViewCompat.getTransitionName(holder.imageView));
 
-                    context.startActivity(intent, options.toBundle());*/
+                    context.startActivity(intent, options.toBundle());
 
                 }
             });
@@ -79,6 +83,11 @@ public class MoviePosterAdapter extends PagedListAdapter<Results, MoviePosterAda
             return oldItem.equals(newItem);
         }
     };
+
+    @Override
+    public void getClickedMovie(Results movie) {
+
+    }
 
 
     public class MovieViewHolder extends RecyclerView.ViewHolder{
