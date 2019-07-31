@@ -27,6 +27,7 @@ import com.example.android.movieapp.model.Results;
 import com.example.android.movieapp.model.response.MovieResponse;
 import com.example.android.movieapp.view.MoviePosterAdapter;
 import com.example.android.movieapp.view.SettingsActivity;
+import com.example.android.movieapp.viewModel.DetailsViewModel;
 import com.example.android.movieapp.viewModel.MoviesViewModel;
 
 public class MainActivity extends AppCompatActivity  {
@@ -52,7 +53,6 @@ public class MainActivity extends AppCompatActivity  {
             public void onChanged(PagedList<Results> results) {
                 moviePosterAdapter.submitList(results);
                 recyclerView.setAdapter(moviePosterAdapter);
-                recyclerView.getAdapter().notifyDataSetChanged();
             }
         });
 

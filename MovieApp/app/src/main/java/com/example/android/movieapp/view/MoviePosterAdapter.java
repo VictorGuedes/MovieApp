@@ -26,6 +26,7 @@ import com.example.android.movieapp.service.ApiService;
 import com.example.android.movieapp.viewModel.MoviesViewModel;
 import com.squareup.picasso.Picasso;
 
+// Troca depois para Binding
 public class MoviePosterAdapter extends PagedListAdapter<Results, MoviePosterAdapter.MovieViewHolder>
         implements MovieEventListener  {
 
@@ -54,12 +55,16 @@ public class MoviePosterAdapter extends PagedListAdapter<Results, MoviePosterAda
                 @Override
                 public void onClick(View view) {
 
-                    //Toast.makeText(context, movie.getOriginalTittle(), Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(context, DetailsActivity.class);
                     holder.imageView.setTransitionName("movie_Poster");
-                    intent.putExtra("photo",ApiService.basePosterUrl + movie.getPosterPath());
+
+                    intent.putExtra("id", movie.getId());
                     intent.putExtra("tittle", movie.getOriginalTittle());
+                    intent.putExtra("overview", movie.getSynopsisMovie());
+                    intent.putExtra("date", movie.getReleaseDate());
+                    intent.putExtra("photo",ApiService.basePosterUrl + movie.getPosterPath());
+                    intent.putExtra("voteAverage", movie.getVoteAvarage());
 
                     ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                             (Activity) context, holder.imageView, ViewCompat.getTransitionName(holder.imageView));
