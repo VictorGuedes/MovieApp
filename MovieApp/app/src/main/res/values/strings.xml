@@ -105,4 +105,7 @@
     <string name="average_rated_text">Average Rated:</string>
     <string name="trailers">Trailer</string>
     <string name="no_trailer_available_for_this_movie">No trailer available for this movie :(</string>
+    <string name="read_movie_comments">Read movie comments</string>
+    <string name="comments_movies_text">Comments</string>
+    <string name="no_comments_movies_text">No comments for this movie</string>
 </resources>

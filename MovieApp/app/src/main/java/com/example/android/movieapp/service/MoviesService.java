@@ -1,5 +1,6 @@
 package com.example.android.movieapp.service;
 
+import com.example.android.movieapp.model.response.CommentsResponse;
 import com.example.android.movieapp.model.response.MovieResponse;
 import com.example.android.movieapp.model.response.MovieTrailerResponse;
 
@@ -27,6 +28,13 @@ public interface MoviesService {
     // Get Movie Trailer
     @GET("{movieid}/videos?")
     Call <MovieTrailerResponse> getMovieTrailers(
+            @Path("movieid") int movieid,
+            @Query("api_key") String apiKey
+    );
+
+    //Get Movies's comments
+    @GET("{movieid}/reviews?")
+    Call <CommentsResponse> getMovieComments(
             @Path("movieid") int movieid,
             @Query("api_key") String apiKey
     );

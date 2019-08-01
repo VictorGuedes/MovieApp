@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white_background"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:id="@+id/progress_comments"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:indeterminateTint="@color/colorPrimaryDark"
+            android:visibility="gone"
+            />
+
+        <TextView
+            android:id="@+id/comment_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/comments_movies_text"
+            android:textSize="20sp"
+            android:layout_margin="16dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:gravity="center" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimaryDark">
+        </View>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_movie_comment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+
+</layout>

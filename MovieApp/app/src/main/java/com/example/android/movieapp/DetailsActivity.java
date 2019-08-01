@@ -34,6 +34,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,7 @@ public class DetailsActivity extends AppCompatActivity {
     private DetailsViewModel detailsViewModel;
     private RecyclerView recyclerView;
     private LinearLayout linearLayout;
+    private int movieId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +58,7 @@ public class DetailsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Bundle bundle = getIntent().getExtras();
-        int movieId = 0;
+
         String urlPhoto = "";
         String tittle = "";
 
@@ -116,5 +118,10 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void viewMovieComments(View view) {
+        startActivity(new Intent(this, CommentActivity.class).putExtra("id", movieId));
+        //Toast.makeText(this, "Open a dialog here", Toast.LENGTH_SHORT).show();
     }
 }
