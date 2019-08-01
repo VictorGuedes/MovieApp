@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/image_movie_poster"
-        android:transitionName="movie_Poster"
+    <data>
+        <variable
+            name="model"
+            type="com.example.android.movieapp.model.Results" />
+    </data>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="260dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher"
-        tools:targetApi="lollipop" />
+        android:layout_height="wrap_content">
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/image_movie_poster"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"
+            android:transitionName="movie_Poster"
+            app:MoviePosterOnClick="@{model}"
+            app:imageUrl="@{model.posterPath}"
+            tools:targetApi="lollipop" />
+    </androidx.cardview.widget.CardView>
+</layout>

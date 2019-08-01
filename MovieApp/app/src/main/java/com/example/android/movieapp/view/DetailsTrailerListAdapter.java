@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,13 +41,9 @@ public class DetailsTrailerListAdapter extends RecyclerView.Adapter<DetailsTrail
     public void onBindViewHolder(@NonNull DetailsTrailerViewHolder holder, int position) {
         final MovieTrailer movieTrailer = movieTrailers.get(position);
         if (movieTrailer != null){
-            Picasso.get()
-                    .load("https://img.youtube.com/vi/" + movieTrailer.getKeyYoutube() + "/0.jpg")
-                    .resize(100,100)
-                    .centerCrop()
-                    .into(holder.imageView);
+            holder.nameTrailer.setText(movieTrailer.getName());
 
-            holder.imageView.setOnClickListener(new View.OnClickListener() {
+            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=" + movieTrailer.getKeyYoutube()));
@@ -54,7 +52,6 @@ public class DetailsTrailerListAdapter extends RecyclerView.Adapter<DetailsTrail
                 }
             });
         }
-
     }
 
     @Override
@@ -63,11 +60,13 @@ public class DetailsTrailerListAdapter extends RecyclerView.Adapter<DetailsTrail
     }
 
     class DetailsTrailerViewHolder extends RecyclerView.ViewHolder{
-        ImageView imageView;
+        TextView nameTrailer;
+        LinearLayout linearLayout;
 
         public DetailsTrailerViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = (ImageView) itemView.findViewById(R.id.image_movie_poster_trailer);
+            linearLayout = (LinearLayout) itemView.findViewById(R.id.itemClicked);
+            nameTrailer = (TextView) itemView.findViewById(R.id.name_trailer_text_view);
         }
     }
 

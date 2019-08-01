@@ -1,6 +1,12 @@
 package com.example.android.movieapp.model;
 
+import android.widget.ImageView;
+
+import androidx.databinding.BindingAdapter;
+
+import com.example.android.movieapp.service.ApiService;
 import com.google.gson.annotations.SerializedName;
+import com.squareup.picasso.Picasso;
 
 public class Results {
 

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.paging.PagedList;
@@ -23,6 +24,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.example.android.movieapp.databinding.ActivityMainBinding;
+import com.example.android.movieapp.model.Comment;
 import com.example.android.movieapp.model.Results;
 import com.example.android.movieapp.model.response.MovieResponse;
 import com.example.android.movieapp.view.MoviePosterAdapter;
@@ -30,23 +33,29 @@ import com.example.android.movieapp.view.SettingsActivity;
 import com.example.android.movieapp.viewModel.DetailsViewModel;
 import com.example.android.movieapp.viewModel.MoviesViewModel;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity  {
 
     private MoviesViewModel moviesViewModel;
     private RecyclerView recyclerView;
+    private ActivityMainBinding activityMainBinding;
+    private MoviePosterAdapter moviePosterAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = findViewById(R.id.recyclerView);
+        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
+        recyclerView = activityMainBinding.recyclerView;
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setHasFixedSize(true);
 
         moviesViewModel = ViewModelProviders.of(this).get(MoviesViewModel.class);
 
-        final MoviePosterAdapter moviePosterAdapter = new MoviePosterAdapter(this);
+        moviePosterAdapter = new MoviePosterAdapter(this);
 
         moviesViewModel.getMoviePagedList().observe(this, new Observer<PagedList<Results>>() {
             @Override
@@ -55,8 +64,6 @@ public class MainActivity extends AppCompatActivity  {
                 recyclerView.setAdapter(moviePosterAdapter);
             }
         });
-
-
     }
 
     @Override

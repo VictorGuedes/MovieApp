@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,66 +14,46 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.movieapp.DetailsActivity;
 import com.example.android.movieapp.R;
+import com.example.android.movieapp.databinding.RecyclerMoviePosterBinding;
+import com.example.android.movieapp.model.Comment;
 import com.example.android.movieapp.model.Results;
 import com.example.android.movieapp.service.ApiService;
 import com.example.android.movieapp.viewModel.MoviesViewModel;
 import com.squareup.picasso.Picasso;
 
-// Troca depois para Binding
-public class MoviePosterAdapter extends PagedListAdapter<Results, MoviePosterAdapter.MovieViewHolder>
-        implements MovieEventListener  {
+import java.util.ArrayList;
 
-    private Context context;
+public class MoviePosterAdapter extends PagedListAdapter<Results, MoviePosterAdapter.MovieViewHolder> {
+
 
     public MoviePosterAdapter(Context context){
         super(DIFF_CALLBACK);
-        this.context = context;
     }
 
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.recycler_movie_poster, parent, false);
-        return new MovieViewHolder(view);
+        RecyclerMoviePosterBinding recyclerMoviePosterBinding =
+                DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.recycler_movie_poster, parent, false);
+
+        return new MoviePosterAdapter.MovieViewHolder(recyclerMoviePosterBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final MovieViewHolder holder, int position) {
         final Results movie = getItem(position);
         if (movie != null){
-            Picasso.get().load(ApiService.basePosterUrl + movie.getPosterPath()).into(holder.imageView);
-
-            holder.imageView.setOnClickListener(new View.OnClickListener() {
-                @androidx.annotation.RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-                @Override
-                public void onClick(View view) {
-
-
-                    Intent intent = new Intent(context, DetailsActivity.class);
-                    holder.imageView.setTransitionName("movie_Poster");
-
-                    intent.putExtra("id", movie.getId());
-                    intent.putExtra("tittle", movie.getOriginalTittle());
-                    intent.putExtra("overview", movie.getSynopsisMovie());
-                    intent.putExtra("date", movie.getReleaseDate());
-                    intent.putExtra("photo",ApiService.basePosterUrl + movie.getPosterPath());
-                    intent.putExtra("voteAverage", movie.getVoteAvarage());
-
-                    ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                            (Activity) context, holder.imageView, ViewCompat.getTransitionName(holder.imageView));
-
-                    context.startActivity(intent, options.toBundle());
-
-                }
-            });
+            holder.recyclerMoviePosterBinding.setModel(movie);
         }
     }
 
@@ -89,21 +70,14 @@ public class MoviePosterAdapter extends PagedListAdapter<Results, MoviePosterAda
         }
     };
 
-    @Override
-    public void getClickedMovie(Results movie) {
-
-    }
-
-
     public class MovieViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView imageView;
+        private RecyclerMoviePosterBinding recyclerMoviePosterBinding;
 
-        public MovieViewHolder(View itemView){
-            super(itemView);
-            imageView = itemView.findViewById(R.id.image_movie_poster);
+        public MovieViewHolder(@NonNull RecyclerMoviePosterBinding recyclerMoviePosterBinding){
+            super(recyclerMoviePosterBinding.getRoot());
+            this.recyclerMoviePosterBinding = recyclerMoviePosterBinding;
         }
-
     }
 
 

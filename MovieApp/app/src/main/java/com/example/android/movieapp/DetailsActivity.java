@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.example.android.movieapp.databinding.ActivityDetailsBinding;
 import com.example.android.movieapp.model.MovieTrailer;
 import com.example.android.movieapp.service.ApiService;
 import com.example.android.movieapp.view.DetailsTrailerListAdapter;
@@ -22,6 +23,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.app.NavUtils;
 import androidx.core.view.ViewCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -41,6 +43,8 @@ import java.util.List;
 
 public class DetailsActivity extends AppCompatActivity {
 
+    private ActivityDetailsBinding activityDetailsBinding;
+
     private ImageView imageView;
     private TextView releaseDate;
     private TextView rated_movie;
@@ -59,6 +63,8 @@ public class DetailsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Bundle bundle = getIntent().getExtras();
 
+        activityDetailsBinding = DataBindingUtil.setContentView(this, R.layout.activity_details);
+
         String urlPhoto = "";
         String tittle = "";
 
@@ -72,7 +78,6 @@ public class DetailsActivity extends AppCompatActivity {
 
         if (bundle != null){
             movieId = bundle.getInt("id");
-            Log.d("Movie id", String.valueOf(movieId));
             releaseDate.setText(bundle.getString("date"));
             rated_movie.setText(String.valueOf(bundle.getFloat("voteAverage")) + " / 10");
             synopsis.setText(bundle.getString("overview"));

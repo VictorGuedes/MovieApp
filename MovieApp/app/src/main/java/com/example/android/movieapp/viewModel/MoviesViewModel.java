@@ -2,6 +2,8 @@ package com.example.android.movieapp.viewModel;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -50,11 +52,11 @@ public class MoviesViewModel extends AndroidViewModel implements SharedPreferenc
         moviePagedList = (new LivePagedListBuilder(movieDataSourceFactory, pagedListConfig)).build();
     }
 
-
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
         String text = sharedPreferences.getString(s, "");
         liveDataSource.getValue().invalidate();
         callApi(text);
     }
+
 }

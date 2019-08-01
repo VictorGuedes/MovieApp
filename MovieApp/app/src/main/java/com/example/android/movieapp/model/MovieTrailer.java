@@ -7,6 +7,9 @@ public class MovieTrailer {
     @SerializedName("key")
     private String keyYoutube;
 
+    @SerializedName("name")
+    private String name;
+
     @SerializedName("site")
     private String site;
 
@@ -16,5 +19,9 @@ public class MovieTrailer {
 
     public String getSite() {
         return site;
+    }
+
+    public String getName() {
+        return name;
     }
 }

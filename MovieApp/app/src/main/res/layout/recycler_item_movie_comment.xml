@@ -4,7 +4,6 @@
     android:layout_marginTop="10dp">
 
     <data>
-
         <variable
             name="comment"
             type="com.example.android.movieapp.model.Comment" />
