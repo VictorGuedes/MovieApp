@@ -103,7 +103,7 @@
     <string name="synopsis_text">Synopsis</string>
     <string name="release_date_text">Release Date:</string>
     <string name="average_rated_text">Average Rated:</string>
-    <string name="trailers">Trailer</string>
+    <string name="trailers">Trailers</string>
     <string name="no_trailer_available_for_this_movie">No trailer available for this movie :(</string>
     <string name="read_movie_comments">Read movie comments</string>
     <string name="comments_movies_text">Comments</string>

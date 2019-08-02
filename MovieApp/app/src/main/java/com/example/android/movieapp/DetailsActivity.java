@@ -2,6 +2,8 @@ package com.example.android.movieapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -35,6 +37,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,15 +47,6 @@ import java.util.List;
 public class DetailsActivity extends AppCompatActivity {
 
     private ActivityDetailsBinding activityDetailsBinding;
-
-    private ImageView imageView;
-    private TextView releaseDate;
-    private TextView rated_movie;
-    private TextView synopsis;
-
-    private DetailsViewModel detailsViewModel;
-    private RecyclerView recyclerView;
-    private LinearLayout linearLayout;
     private int movieId = 0;
 
     @Override
@@ -66,31 +60,17 @@ public class DetailsActivity extends AppCompatActivity {
         activityDetailsBinding = DataBindingUtil.setContentView(this, R.layout.activity_details);
 
         String urlPhoto = "";
-        String tittle = "";
-
-        releaseDate = (TextView) findViewById(R.id.release_date_text_view);
-        rated_movie = (TextView) findViewById(R.id.movie_rated_text_view);
-        synopsis = (TextView) findViewById(R.id.synopis_text_view);
-
-        recyclerView = findViewById(R.id.recyclerView_trailers);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
 
         if (bundle != null){
             movieId = bundle.getInt("id");
-            releaseDate.setText(bundle.getString("date"));
-            rated_movie.setText(String.valueOf(bundle.getFloat("voteAverage")) + " / 10");
-            synopsis.setText(bundle.getString("overview"));
+            activityDetailsBinding.releaseDateTextView.setText(bundle.getString("date"));
+            activityDetailsBinding.movieRatedTextView.setText(String.valueOf(bundle.getFloat("voteAverage")) + " / 10");
+            activityDetailsBinding.synopisTextView.setText(bundle.getString("overview"));
+            activityDetailsBinding.toolbarLayout.setTitle(bundle.getString("tittle"));
 
             urlPhoto = bundle.getString("photo");
-            tittle = bundle.getString("tittle");
+            Picasso.get().load(urlPhoto).into(activityDetailsBinding.imageMoviePosterDetails);
         }
-
-        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        collapsingToolbar.setTitle(tittle);
-
-        imageView = (ImageView) findViewById(R.id.image_movie_poster_details);
-        Picasso.get().load(urlPhoto).into(imageView);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -100,33 +80,14 @@ public class DetailsActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
-
-        detailsViewModel = ViewModelProviders.of(this).get(DetailsViewModel.class);
-        detailsViewModel.callApi(movieId);
-
-
-        detailsViewModel.getMoviesLiveData().observe(this, new Observer<List<MovieTrailer>>() {
-            @Override
-            public void onChanged(List<MovieTrailer> movieTrailers) {
-                recyclerView.setVisibility(View.VISIBLE);
-                DetailsTrailerListAdapter movieTrailerAdapter = new DetailsTrailerListAdapter(getBaseContext(), movieTrailers);
-                recyclerView.setAdapter(movieTrailerAdapter);
-            }
-        });
-
-        detailsViewModel.getNoTrailer().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                linearLayout = (LinearLayout) findViewById(R.id.linearVideoAvalable);
-                linearLayout.setVisibility(View.VISIBLE);
-            }
-        });
-
     }
+
 
     public void viewMovieComments(View view) {
         startActivity(new Intent(this, CommentActivity.class).putExtra("id", movieId));
-        //Toast.makeText(this, "Open a dialog here", Toast.LENGTH_SHORT).show();
+    }
+
+    public void viewMovieTrailers(View view) {
+        startActivity(new Intent(this, TrailersActivity.class).putExtra("id", movieId));
     }
 }

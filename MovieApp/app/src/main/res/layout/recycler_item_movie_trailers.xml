@@ -1,39 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:id="@+id/itemClicked"
+    <data>
+        <variable
+            name="trailer"
+            type="com.example.android.movieapp.model.MovieTrailer" />
+    </data>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?android:attr/selectableItemBackground"
-        android:orientation="horizontal">
+        android:foreground="?android:attr/selectableItemBackground"
+        app:openTrailer="@{trailer}">
 
-        <ImageView
-            android:id="@+id/image_movie_poster_trailer"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_play_circle_outline_black_24dp" />
-
-        <TextView
-            android:id="@+id/name_trailer_text_view"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/itemClicked"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="20sp"
-            android:text="@string/trailers"/>
-    </LinearLayout>
+            android:orientation="horizontal">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorPrimaryDark">
-    </View>
+            <ImageView
+                android:id="@+id/image_movie_poster_trailer"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_play_circle_outline_black_24dp" />
 
+            <TextView
+                android:id="@+id/name_trailer_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@{trailer.name}"
+                android:textSize="20sp" />
+        </LinearLayout>
 
-</LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimaryDark" />
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

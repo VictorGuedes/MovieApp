@@ -47,7 +47,6 @@ public class CommentActivity extends AppCompatActivity {
         commentViewModel = ViewModelProviders.of(this).get(CommentViewModel.class);
         commentListAdapter = new CommentListAdapter();
 
-
         commentViewModel.callApi(movieId);
         getAllComments();
     }

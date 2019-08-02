@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".CommentActivity"></activity>
+        <activity android:name=".TrailersActivity"></activity>
+        <activity android:name=".CommentActivity" />
         <activity
             android:name=".view.SettingsActivity"
             android:label="@string/setting_text"
@@ -27,7 +28,7 @@
         <activity
             android:name=".DetailsActivity"
             android:label="@string/title_activity_details"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop">
