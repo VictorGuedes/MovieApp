@@ -1,5 +1,8 @@
 package com.example.android.movieapp.repository;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.paging.PageKeyedDataSource;
 
@@ -7,6 +10,7 @@ import com.example.android.movieapp.model.Results;
 import com.example.android.movieapp.model.response.MovieResponse;
 import com.example.android.movieapp.service.ApiService;
 import com.example.android.movieapp.service.MoviesService;
+import com.example.android.movieapp.service.NetworkConnectionInterceptor;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,9 +20,15 @@ public class TopRatedMovieDataSource extends PageKeyedDataSource<Integer, Result
 
     private int firstPage = 1;
 
+    private Context context;
+
+    public TopRatedMovieDataSource(Context context){
+        this.context = context;
+    }
+
     @Override
     public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull final LoadInitialCallback<Integer, Results> callback) {
-        MoviesService moviesService = ApiService.getRetrofitInstance().create(MoviesService.class);
+        MoviesService moviesService = ApiService.getRetrofitInstance(context).create(MoviesService.class);
 
         moviesService.getTopRatedMovies(ApiService.apiKey, firstPage).enqueue(new Callback<MovieResponse>() {
             @Override
@@ -30,14 +40,16 @@ public class TopRatedMovieDataSource extends PageKeyedDataSource<Integer, Result
 
             @Override
             public void onFailure(Call<MovieResponse> call, Throwable t) {
-
+                if (t instanceof NetworkConnectionInterceptor.NoConnectivityException){
+                    Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
 
     @Override
     public void loadBefore(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Results> callback) {
-        MoviesService moviesService = ApiService.getRetrofitInstance().create(MoviesService.class);
+        MoviesService moviesService = ApiService.getRetrofitInstance(context).create(MoviesService.class);
 
         moviesService.getTopRatedMovies(ApiService.apiKey, params.key).enqueue(new Callback<MovieResponse>() {
             @Override
@@ -50,14 +62,16 @@ public class TopRatedMovieDataSource extends PageKeyedDataSource<Integer, Result
 
             @Override
             public void onFailure(Call<MovieResponse> call, Throwable t) {
-
+                if (t instanceof NetworkConnectionInterceptor.NoConnectivityException){
+                    Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
 
     @Override
     public void loadAfter(@NonNull final LoadParams<Integer> params, @NonNull final LoadCallback<Integer, Results> callback) {
-        MoviesService moviesService = ApiService.getRetrofitInstance().create(MoviesService.class);
+        MoviesService moviesService = ApiService.getRetrofitInstance(context).create(MoviesService.class);
 
         moviesService.getTopRatedMovies(ApiService.apiKey, params.key).enqueue(new Callback<MovieResponse>() {
             @Override
@@ -70,7 +84,9 @@ public class TopRatedMovieDataSource extends PageKeyedDataSource<Integer, Result
 
             @Override
             public void onFailure(Call<MovieResponse> call, Throwable t) {
-
+                if (t instanceof NetworkConnectionInterceptor.NoConnectivityException){
+                    Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

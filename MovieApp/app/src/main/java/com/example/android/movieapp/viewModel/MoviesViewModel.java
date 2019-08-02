@@ -32,6 +32,7 @@ public class MoviesViewModel extends AndroidViewModel implements SharedPreferenc
 
         movieDataSourceFactory = new MovieDataSourceFactory();
 
+
         callApi(text);
     }
 
@@ -45,8 +46,10 @@ public class MoviesViewModel extends AndroidViewModel implements SharedPreferenc
 
 
     public void callApi(String text){
+        movieDataSourceFactory.setContext(getApplication().getBaseContext());
         movieDataSourceFactory.setText(text);
         liveDataSource = movieDataSourceFactory.getMoviesLiveData();
+
         PagedList.Config pagedListConfig = new PagedList.Config.Builder().setEnablePlaceholders(false).setPageSize(20).build();
 
         moviePagedList = (new LivePagedListBuilder(movieDataSourceFactory, pagedListConfig)).build();

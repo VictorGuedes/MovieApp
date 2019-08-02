@@ -12,6 +12,7 @@ import com.example.android.movieapp.model.MovieTrailer;
 import com.example.android.movieapp.model.response.MovieTrailerResponse;
 import com.example.android.movieapp.service.ApiService;
 import com.example.android.movieapp.service.MoviesService;
+import com.example.android.movieapp.service.NetworkConnectionInterceptor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class DetailsViewModel extends AndroidViewModel {
     }
 
     public void callApi(int movieId){
-        MoviesService moviesService = ApiService.getRetrofitInstance().create(MoviesService.class);
+        MoviesService moviesService = ApiService.getRetrofitInstance(getApplication().getBaseContext()).create(MoviesService.class);
 
         moviesService.getMovieTrailers(movieId, ApiService.apiKey).enqueue(new Callback<MovieTrailerResponse>() {
             @Override
@@ -56,8 +57,10 @@ public class DetailsViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(Call<MovieTrailerResponse> call, Throwable t) {
-                //Toast.makeText(getApplication().getBaseContext(), "Internet", Toast.LENGTH_SHORT).show();
                 Log.d("Falhou-Trailer", t.getMessage());
+                if (t instanceof NetworkConnectionInterceptor.NoConnectivityException){
+                    Toast.makeText(getApplication().getBaseContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

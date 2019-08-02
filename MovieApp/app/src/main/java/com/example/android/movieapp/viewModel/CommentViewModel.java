@@ -1,6 +1,8 @@
 package com.example.android.movieapp.viewModel;
 
 import android.app.Application;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -10,6 +12,7 @@ import com.example.android.movieapp.model.Comment;
 import com.example.android.movieapp.model.response.CommentsResponse;
 import com.example.android.movieapp.service.ApiService;
 import com.example.android.movieapp.service.MoviesService;
+import com.example.android.movieapp.service.NetworkConnectionInterceptor;
 
 import java.util.List;
 
@@ -36,7 +39,7 @@ public class CommentViewModel extends AndroidViewModel {
     }
 
     public void callApi(int movieId){
-        MoviesService moviesService = ApiService.getRetrofitInstance().create(MoviesService.class);
+        MoviesService moviesService = ApiService.getRetrofitInstance(getApplication().getBaseContext()).create(MoviesService.class);
 
         moviesService.getMovieComments(movieId, ApiService.apiKey).enqueue(new Callback<CommentsResponse>() {
             @Override
@@ -50,7 +53,10 @@ public class CommentViewModel extends AndroidViewModel {
 
             @Override
             public void onFailure(Call<CommentsResponse> call, Throwable t) {
-
+                Log.d("Falhou-Trailer", t.getMessage());
+                if (t instanceof NetworkConnectionInterceptor.NoConnectivityException){
+                    Toast.makeText(getApplication().getBaseContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
