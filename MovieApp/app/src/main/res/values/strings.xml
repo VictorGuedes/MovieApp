@@ -108,4 +108,5 @@
     <string name="read_movie_comments">Read movie comments</string>
     <string name="comments_movies_text">Comments</string>
     <string name="no_comments_movies_text">No comments for this movie</string>
+    <string name="refresh">Refresh</string>
 </resources>
