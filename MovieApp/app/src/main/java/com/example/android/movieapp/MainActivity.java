@@ -80,6 +80,9 @@ public class MainActivity extends AppCompatActivity  {
         if (item.getItemId() == R.id.setting_action){
             startActivity(new Intent(this, SettingsActivity.class));
 
+        }else if(item.getItemId() == R.id.favorite_action){
+            startActivity(new Intent(this, FavoriteActivity.class));
+
         }else if(item.getItemId() == R.id.refresh_action){
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplication().getBaseContext());
             String text = sharedPreferences.getString(getResources().getString(R.string.pref_search_key), "");

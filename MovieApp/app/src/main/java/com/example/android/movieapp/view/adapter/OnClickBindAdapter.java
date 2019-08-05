@@ -34,12 +34,7 @@ public class OnClickBindAdapter {
             public void onClick(View view) {
                 Context context = imageView.getContext();
                 Intent intent = new Intent(context, DetailsActivity.class);
-                intent.putExtra("id", movie.getId());
-                intent.putExtra("tittle", movie.getOriginalTittle());
-                intent.putExtra("overview", movie.getSynopsisMovie());
-                intent.putExtra("date", movie.getReleaseDate());
-                intent.putExtra("photo", ApiService.basePosterUrl + movie.getPosterPath());
-                intent.putExtra("voteAverage", movie.getVoteAvarage());
+                intent.putExtra("movie", movie);
 
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                         (Activity) context, imageView, ViewCompat.getTransitionName(imageView));

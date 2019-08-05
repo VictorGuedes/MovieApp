@@ -7,6 +7,12 @@
     </item>
 
     <item
+        android:id="@+id/favorite_action"
+        android:title="@string/favorite_movies">
+
+    </item>
+
+    <item
         android:id="@+id/refresh_action"
         android:title="@string/refresh">
     </item>

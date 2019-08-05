@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".TrailersActivity"></activity>
+        <activity android:name=".FavoriteActivity"></activity>
+        <activity android:name=".TrailersActivity" />
         <activity android:name=".CommentActivity" />
         <activity
             android:name=".view.SettingsActivity"

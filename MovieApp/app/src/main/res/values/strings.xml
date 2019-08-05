@@ -109,4 +109,8 @@
     <string name="comments_movies_text">Comments</string>
     <string name="no_comments_movies_text">No comments for this movie</string>
     <string name="refresh">Refresh</string>
+    <string name="favorite_movies">Favorite Movies</string>
+    <string name="no_favorite_movies_saved">No favorite movies saved</string>
+    <string name="add_movie_text">Movie added as favorite</string>
+    <string name="delete_movie_text">Movie deleted of favorite</string>
 </resources>
