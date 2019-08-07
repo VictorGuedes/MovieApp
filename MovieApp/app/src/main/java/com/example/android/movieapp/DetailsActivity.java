@@ -37,7 +37,6 @@ public class DetailsActivity extends AppCompatActivity {
     private FavoritesViewModel favoritesViewModel;
     private boolean movieInDatabase = false;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +59,6 @@ public class DetailsActivity extends AppCompatActivity {
             activityDetailsBinding.toolbarLayout.setTitle(actualMovie.getOriginalTittle());
 
             Picasso.get().load(ApiService.basePosterUrl + actualMovie.getPosterPath()).into(activityDetailsBinding.imageMoviePosterDetails);
-            activityDetailsBinding.imageMoviePosterDetails.setTransitionName("movie_Poster");
             favoritesViewModel.getMovieById(actualMovie);
         }
 
