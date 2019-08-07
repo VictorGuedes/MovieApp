@@ -1,12 +1,8 @@
-package com.example.android.movieapp.service;
+package com.example.android.movieapp.model.service;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
 
 import java.io.IOException;
 

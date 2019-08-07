@@ -1,37 +1,19 @@
 package com.example.android.movieapp.view;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.android.movieapp.DetailsActivity;
 import com.example.android.movieapp.R;
 import com.example.android.movieapp.databinding.RecyclerMoviePosterBinding;
-import com.example.android.movieapp.model.Comment;
 import com.example.android.movieapp.model.Results;
-import com.example.android.movieapp.service.ApiService;
-import com.example.android.movieapp.viewModel.MoviesViewModel;
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
 
 public class MoviePosterAdapter extends PagedListAdapter<Results, MoviePosterAdapter.MovieViewHolder> {
 

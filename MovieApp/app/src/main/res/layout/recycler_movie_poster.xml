@@ -18,7 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="260dp"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher"
             android:transitionName="movie_Poster"
             app:MoviePosterOnClick="@{model}"
             app:imageUrl="@{model.posterPath}"

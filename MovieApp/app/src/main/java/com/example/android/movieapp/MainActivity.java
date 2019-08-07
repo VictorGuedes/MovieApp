@@ -28,6 +28,8 @@ import com.example.android.movieapp.databinding.ActivityMainBinding;
 import com.example.android.movieapp.model.Comment;
 import com.example.android.movieapp.model.Results;
 import com.example.android.movieapp.model.response.MovieResponse;
+import com.example.android.movieapp.model.service.NetworkState;
+import com.example.android.movieapp.model.service.Status;
 import com.example.android.movieapp.view.MoviePosterAdapter;
 import com.example.android.movieapp.view.SettingsActivity;
 import com.example.android.movieapp.viewModel.DetailsViewModel;
@@ -62,6 +64,22 @@ public class MainActivity extends AppCompatActivity  {
             public void onChanged(PagedList<Results> results) {
                 moviePosterAdapter.submitList(results);
                 recyclerView.setAdapter(moviePosterAdapter);
+            }
+        });
+
+        moviesViewModel.getNetworkState().observe(this, new Observer<NetworkState>() {
+            @Override
+            public void onChanged(NetworkState networkState) {
+                Log.d("Net", String.valueOf(networkState.getStatus()));
+
+                if (networkState.getStatus().equals(Status.SUCCESS)){
+                    activityMainBinding.noInternetTextView.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                } else {
+                    activityMainBinding.noInternetTextView.setVisibility(View.VISIBLE);
+                    moviesViewModel.getLiveDataSource().getValue().invalidate();
+                }
+
             }
         });
     }

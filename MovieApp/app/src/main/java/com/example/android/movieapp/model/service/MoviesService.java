@@ -1,4 +1,4 @@
-package com.example.android.movieapp.service;
+package com.example.android.movieapp.model.service;
 
 import com.example.android.movieapp.model.response.CommentsResponse;
 import com.example.android.movieapp.model.response.MovieResponse;

@@ -10,7 +10,7 @@ import com.example.android.movieapp.model.Results;
 
 public class MovieDataSourceFactory extends DataSource.Factory {
 
-    private MutableLiveData<PageKeyedDataSource<Integer, Results>> moviesLiveData = new MutableLiveData<>();
+    private MutableLiveData<DataSourcee> moviesLiveData = new MutableLiveData<>();
     private String text;
     private Context context;
 
@@ -18,20 +18,21 @@ public class MovieDataSourceFactory extends DataSource.Factory {
     @Override
     public DataSource<Integer, Results> create() {
 
-        PageKeyedDataSource movieDataSource = selectMovieDataSource(text);
+        DataSourcee movieDataSource = selectMovieDataSource(text);
+
         moviesLiveData.postValue(movieDataSource);
 
         return movieDataSource;
     }
 
-    public MutableLiveData<PageKeyedDataSource<Integer, Results>> getMoviesLiveData() {
+    public MutableLiveData<DataSourcee> getMoviesLiveData() {
         return moviesLiveData;
     }
 
-    private PageKeyedDataSource selectMovieDataSource(String type){
-        PageKeyedDataSource dataSource;
+    private DataSourcee selectMovieDataSource(String type){
+        DataSourcee dataSource;
 
-        if (type.equals("Popular movies")){
+        if (type.equals("Popular movies") || type.isEmpty()){
             dataSource = new PopularMovieDataSource(context);
         } else {
             dataSource = new TopRatedMovieDataSource(context);
@@ -39,6 +40,7 @@ public class MovieDataSourceFactory extends DataSource.Factory {
 
         return dataSource;
     }
+
 
     public void setContext(Context context) {
         this.context = context;

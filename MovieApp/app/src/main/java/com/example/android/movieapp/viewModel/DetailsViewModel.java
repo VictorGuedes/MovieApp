@@ -10,11 +10,10 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.android.movieapp.model.MovieTrailer;
 import com.example.android.movieapp.model.response.MovieTrailerResponse;
-import com.example.android.movieapp.service.ApiService;
-import com.example.android.movieapp.service.MoviesService;
-import com.example.android.movieapp.service.NetworkConnectionInterceptor;
+import com.example.android.movieapp.model.service.ApiService;
+import com.example.android.movieapp.model.service.MoviesService;
+import com.example.android.movieapp.model.service.NetworkConnectionInterceptor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
