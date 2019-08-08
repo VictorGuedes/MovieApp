@@ -1,51 +1,33 @@
 package com.example.android.movieapp;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 
 import com.example.android.movieapp.databinding.ActivityDetailsBinding;
-import com.example.android.movieapp.model.MovieTrailer;
 import com.example.android.movieapp.model.Results;
-import com.example.android.movieapp.service.ApiService;
-import com.example.android.movieapp.view.DetailsTrailerListAdapter;
-import com.example.android.movieapp.view.MoviePosterAdapter;
-import com.example.android.movieapp.viewModel.DetailsViewModel;
+import com.example.android.movieapp.model.service.ApiService;
 import com.example.android.movieapp.viewModel.FavoritesViewModel;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.app.NavUtils;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DetailsActivity extends AppCompatActivity {
@@ -59,10 +41,14 @@ public class DetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         activityDetailsBinding = DataBindingUtil.setContentView(this, R.layout.activity_details);
+        setSupportActionBar(activityDetailsBinding.toolbar);
+
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         favoritesViewModel =  ViewModelProviders.of(this).get(FavoritesViewModel.class);
         actualMovie = (Results) getIntent().getParcelableExtra("movie");
 
@@ -110,6 +96,15 @@ public class DetailsActivity extends AppCompatActivity {
             favoritesViewModel.deleteMovie(actualMovie);
             Snackbar.make(view, getString(R.string.delete_movie_text), Snackbar.LENGTH_LONG).setAction("Action", null).show();
         }
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

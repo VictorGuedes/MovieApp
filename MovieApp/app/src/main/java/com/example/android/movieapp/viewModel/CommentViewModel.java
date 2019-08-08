@@ -10,9 +10,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.android.movieapp.model.Comment;
 import com.example.android.movieapp.model.response.CommentsResponse;
-import com.example.android.movieapp.service.ApiService;
-import com.example.android.movieapp.service.MoviesService;
-import com.example.android.movieapp.service.NetworkConnectionInterceptor;
+import com.example.android.movieapp.model.service.ApiService;
+import com.example.android.movieapp.model.service.MoviesService;
+import com.example.android.movieapp.model.service.NetworkConnectionInterceptor;
 
 import java.util.List;
 

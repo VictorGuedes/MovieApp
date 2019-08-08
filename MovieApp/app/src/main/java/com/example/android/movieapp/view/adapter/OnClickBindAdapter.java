@@ -3,8 +3,6 @@ package com.example.android.movieapp.view.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.view.View;
@@ -19,9 +17,6 @@ import androidx.databinding.BindingAdapter;
 import com.example.android.movieapp.DetailsActivity;
 import com.example.android.movieapp.model.MovieTrailer;
 import com.example.android.movieapp.model.Results;
-import com.example.android.movieapp.service.ApiService;
-
-import java.io.ByteArrayOutputStream;
 
 public class OnClickBindAdapter {
 

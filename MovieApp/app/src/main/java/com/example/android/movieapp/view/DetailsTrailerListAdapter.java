@@ -1,14 +1,7 @@
 package com.example.android.movieapp.view;
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -17,11 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.android.movieapp.R;
 import com.example.android.movieapp.databinding.RecyclerItemMovieTrailersBinding;
 import com.example.android.movieapp.model.MovieTrailer;
-import com.example.android.movieapp.service.ApiService;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DetailsTrailerListAdapter extends RecyclerView.Adapter<DetailsTrailerListAdapter.DetailsTrailerViewHolder> {
 
